@@ -1,0 +1,9 @@
+﻿test_id,fitur,langkah,hasil_diharapkan,hasil_aktual,status,catatan
+UAT-01,Dashboard overview,Buka dashboard utama.,"KPI jumlah ulasan, rata-rata rating, jumlah/persentase negatif tampil tanpa error.",,Belum diuji,
+UAT-02,Filter aplikasi,"Pilih Shopee saja, lalu Tokopedia saja.","Seluruh KPI, grafik, dan tabel berubah sesuai aplikasi terpilih.",,Belum diuji,
+UAT-03,Filter periode,Pilih rentang tanggal tertentu.,Data yang ditampilkan hanya berasal dari periode yang dipilih.,,Belum diuji,
+UAT-04,Distribusi sentimen,"Amati grafik positif, netral, dan negatif.",Jumlah atau proporsi ketiga sentimen tampil dan konsisten dengan filter.,,Belum diuji,
+UAT-05,Perbandingan aplikasi,Bandingkan komposisi sentimen Shopee dan Tokopedia.,Grafik perbandingan menunjukkan kedua aplikasi secara jelas.,,Belum diuji,
+UAT-06,Tren sentimen,Lihat grafik sentimen berdasarkan bulan.,Perubahan jumlah sentimen dari waktu ke waktu dapat dibaca.,,Belum diuji,
+UAT-07,Topik keluhan,Pilih topik keluhan tertentu.,Jumlah ulasan dan distribusi topik sesuai filter dan nama topik yang sudah diinterpretasi.,,Belum diuji,
+UAT-08,Detail ulasan,Buka tabel/detail ulasan.,"Aplikasi, tanggal, rating, teks ulasan, sentimen, dan topik tampil konsisten.",,Belum diuji,
