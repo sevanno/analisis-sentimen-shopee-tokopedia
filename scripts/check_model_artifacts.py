@@ -2,7 +2,7 @@ from pathlib import Path
 import json
 import joblib
 
-root = Path(__file__).resolve().parent
+root = Path(__file__).resolve().parent.parent
 artifact_dir = root / "artifacts"
 required = [
     "linear_svc_sentiment.joblib",

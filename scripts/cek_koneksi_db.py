@@ -4,7 +4,8 @@ import tomllib
 from sqlalchemy import create_engine, text
 
 # Membaca konfigurasi rahasia
-secret_file = Path(".streamlit/secrets.toml")
+project_root = Path(__file__).resolve().parent.parent
+secret_file = project_root / ".streamlit" / "secrets.toml"
 
 if not secret_file.exists():
     raise FileNotFoundError("secrets.toml tidak ditemukan")

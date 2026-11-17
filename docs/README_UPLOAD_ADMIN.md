@@ -1,4 +1,4 @@
-# Fitur Upload CSV (Admin) — Dashboard Sentimen Shopee & Tokopedia
+# Fitur Upload CSV (Admin) - Dashboard Sentimen Shopee & Tokopedia
 
 ## Fitur
 
@@ -25,7 +25,7 @@ Kolom opsional:
 
 - `thumbs_up_count`: jumlah helpful votes. Jika tidak ada, nilainya disimpan sebagai NULL.
 
-Template tersedia pada `template_upload_review.csv`. Pilih Shopee atau Tokopedia pada dropdown dashboard; kolom aplikasi tidak diperlukan di CSV.
+Template tersedia pada `templates/template_upload_review.csv`. Pilih Shopee atau Tokopedia pada dropdown dashboard; kolom aplikasi tidak diperlukan di CSV.
 
 Batas awal aplikasi: 20 MB dan maksimum 10.000 baris per upload. Upload satu aplikasi per file. Baris dengan ID, teks, rating, atau tanggal tidak valid akan ditolak pada tahap validasi.
 
@@ -41,17 +41,17 @@ Buat folder `artifacts/` pada root dashboard dan salin file berikut dari folder 
 | `models/topic_model/kmeans_negative_topics.joblib` | `artifacts/kmeans_negative_topics.joblib` |
 | `data/processed/kmeans_topic_analysis/topic_analysis_metadata.json` | `artifacts/topic_analysis_metadata.json` |
 
-Empat file joblib dan metadata harus berasal dari run Notebook 05–07 yang sama dengan model/version yang didaftarkan Notebook 08. Aplikasi memverifikasi versi hash LinearSVC dan versi topik terhadap `dw.model_registry` serta `dw.dim_topic`. Jika tidak cocok, upload ditolak agar tidak terjadi pencampuran model.
+Empat file joblib dan metadata harus berasal dari run Notebook 05-07 yang sama dengan model/version yang didaftarkan Notebook 08. Aplikasi memverifikasi versi hash LinearSVC dan versi topik terhadap `dw.model_registry` serta `dw.dim_topic`. Jika tidak cocok, upload ditolak agar tidak terjadi pencampuran model.
 
 Jalankan pemeriksaan lokal:
 
 ```powershell
-python check_model_artifacts.py
+python scripts/check_model_artifacts.py
 ```
 
 File `.joblib` bukan kredensial, tetapi file model harus diperlakukan sebagai artefak aplikasi. Periksa ukuran setiap file sebelum melakukan push. Jangan commit dataset mentah, `.env`, atau `secrets.toml`.
 
-**Kompatibilitas model:** `joblib`/scikit-learn model pickle paling aman dibuka dengan versi scikit-learn dan joblib yang sama seperti saat model disimpan. Jalankan `python check_model_artifacts.py` pada environment yang digunakan untuk Notebook 05/06, lalu pin versi `scikit-learn` dan `joblib` tersebut secara tepat di `requirements.txt` sebelum deploy.
+**Kompatibilitas model:** `joblib`/scikit-learn model pickle paling aman dibuka dengan versi scikit-learn dan joblib yang sama seperti saat model disimpan. Jalankan `python scripts/check_model_artifacts.py` pada environment yang digunakan untuk Notebook 05/06, lalu pin versi `scikit-learn` dan `joblib` tersebut secara tepat di `requirements.txt` sebelum deploy.
 
 ## 3. Buat role database khusus untuk upload
 
@@ -67,7 +67,7 @@ Role ini tidak diberi izin SELECT/UPDATE/DELETE. Dashboard tetap membaca data me
 
 ## 4. Atur Streamlit Secrets
 
-Pertahankan `[connections.dw]` yang sudah digunakan dashboard. Tambahkan bagian berikut ke file lokal `.streamlit/secrets.toml` dan Streamlit Cloud → App Settings → Secrets:
+Pertahankan `[connections.dw]` yang sudah digunakan dashboard. Tambahkan bagian berikut ke file lokal `.streamlit/secrets.toml` dan Streamlit Cloud -> App Settings -> Secrets:
 
 ```toml
 [connections.ingest]
@@ -85,7 +85,7 @@ Salin HOST, port, dan format username pooler dari menu Connect Supabase. Untuk S
 1. Ganti `app.py` lama dengan file `app.py` dari paket ini.
 2. Ganti `requirements.txt` dengan versi paket ini, lalu pin `scikit-learn` dan `joblib` sesuai environment pembuat model.
 3. Tambahkan folder `artifacts/` berisi lima artefak yang diminta.
-4. Tambahkan `sql/03_dashboard_ingest_role_template.sql`, `README_UPLOAD_ADMIN.md`, `template_upload_review.csv`, dan `check_model_artifacts.py`.
+4. Tambahkan `sql/03_dashboard_ingest_role_template.sql`, `docs/README_UPLOAD_ADMIN.md`, `templates/template_upload_review.csv`, dan `scripts/check_model_artifacts.py`.
 5. Pastikan `.gitignore` memuat `.streamlit/secrets.toml`, `.env`, dan `.venv/`.
 6. Periksa `git status`, lalu commit dan push ke GitHub.
 7. Streamlit Community Cloud akan mendeteksi perubahan repository dan melakukan deployment ulang. Pastikan Secrets di Cloud sudah memiliki `[connections.ingest]` dan `[admin]`.
@@ -110,7 +110,7 @@ Salin HOST, port, dan format username pooler dari menu Connect Supabase. Untuk S
 - Topik hanya diberikan pada review yang diprediksi negatif dan diproses oleh model K-Means tersimpan. Topic ID harus cocok dengan versi yang ada di `dw.dim_topic`.
 - `decision_function` LinearSVC disimpan sebagai skor/margin keputusan, bukan probabilitas.
 - Upload append-only dan tidak mengubah review lama. Untuk memperbaiki data lama, gunakan proses ETL terkontrol terpisah.
-- Fitur ini menambahkan jalur data baru ke dashboard. Uji dulu menggunakan CSV kecil (2–5 baris) dan verifikasi hasil di Supabase sebelum menggunakannya untuk file yang lebih besar.
+- Fitur ini menambahkan jalur data baru ke dashboard. Uji dulu menggunakan CSV kecil (2-5 baris) dan verifikasi hasil di Supabase sebelum menggunakannya untuk file yang lebih besar.
 
 
 ## 8. Halaman Evaluasi Model (semua pengguna)

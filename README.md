@@ -19,7 +19,7 @@ Aplikasi Streamlit untuk menyajikan hasil analisis sentimen review Google Play S
 Empat laporan hasil Notebook 05 harus berada di folder `evaluation/`. File tersebut merupakan hasil aktual yang diberikan peneliti dan ditampilkan apa adanya pada halaman Evaluasi Model. Jangan mengedit angka metrik secara manual.
 
 ## Menyiapkan model untuk upload CSV
-Salin artefak model dari proyek skripsi ke `artifacts/` sesuai tabel di `README_UPLOAD_ADMIN.md`. Jangan melakukan training ulang saat setiap upload; aplikasi menggunakan model dan vectorizer yang sama dengan Notebook 05–07.
+Salin artefak model dari proyek skripsi ke `artifacts/` sesuai tabel di `docs/README_UPLOAD_ADMIN.md`. Jangan melakukan training ulang saat setiap upload; aplikasi menggunakan model dan vectorizer yang sama dengan Notebook 05–07.
 
 ## Menjalankan lokal
 ```powershell
